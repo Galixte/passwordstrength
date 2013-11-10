@@ -24,9 +24,10 @@
 		</installation>
 		<history>
 			<entry>
-				<date>2011-10-10</date>
+				<date>2013-11-09</date>
 				<rev-version>1.0.4</rev-version>
 				<changelog lang="en">
+					<change><![CDATA[Add Ukranian language pack]]></change>
 					<change><![CDATA[Add French language pack]]></change>
 					<change><![CDATA[Add Croatian language pack]]></change>
 				</changelog>
