@@ -14,7 +14,7 @@ Awards
 Support
 -------
 
-* Report any bugs or problems you encounter to the issue tracker: https://github.com/VSEphpbb/password_strength/issues
+* Report any bugs or problems you encounter to the issue tracker: https://github.com/VSEphpbb/passwordstrength/issues
 * Support is also available at phpBB: https://www.phpbb.com/customise/db/mod/show_password_strength
 
 Requirements
