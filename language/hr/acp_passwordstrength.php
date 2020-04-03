@@ -1,12 +1,12 @@
 <?php
 /**
 *
-* Password Strength [Arabic]
+* Password Strength [Croatian]
+* Croatian translation by Ančica Sečan Matijaščić (http://ancica.sunceko.net)
 *
-* @copyright (c) 2013 Matt Friedman
+* @copyright (c) 2016 Matt Friedman
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
-* Translated By : Bassel Taha Alhitary - www.alhitary.net
 */
 
 /**
@@ -35,9 +35,8 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'PS_VERY_WEAK'		=> 'ضعيفة جداً',
-	'PS_WEAK'			=> 'ضعيفة',
-	'PS_GOOD'			=> 'جيدة',
-	'PS_STRONG'			=> 'قوية',
-	'PS_VERY_STRONG'	=> 'قوية جداً',
+	'PASSWORD_STRENGTH_TYPE'			=> 'Algoritam jačine zaporke',
+	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Ukoliko je izabrano “<strong>Složenost</strong>”, prilikom utvrđivanja <em>jačine zaporke</em>, bit će traženo miješanje znakova, brojeva, simbola i dužine zaporke uz poticanje na kompleksniju zaporku.<br/>Ukoliko je izabrano “<strong>zxcvbn algoritam</strong>” (DropBox), prilikom utvrđivanja <em>jačine zaporke</em>, bit će (iz)računa(va)no koliko bi lako zaporka mogla biti pogođena uz dozvoljavanje jače korisničko-prilagođene zaporke.',
+	'PASSWORD_STRENGTH_TYPE_COMPLEX'	=> 'Složenost',
+	'PASSWORD_STRENGTH_TYPE_ZXCVBN'		=> 'zxcvbn algoritam',
 ));

@@ -1,12 +1,11 @@
 <?php
 /**
 *
-* Password Strength [Arabic]
+* Password Strength [Simplified Chinese]
 *
 * @copyright (c) 2013 Matt Friedman
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
-* Translated By : Bassel Taha Alhitary - www.alhitary.net
 */
 
 /**
@@ -35,9 +34,9 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'PS_VERY_WEAK'		=> 'ضعيفة جداً',
-	'PS_WEAK'			=> 'ضعيفة',
-	'PS_GOOD'			=> 'جيدة',
-	'PS_STRONG'			=> 'قوية',
-	'PS_VERY_STRONG'	=> 'قوية جداً',
+	'PS_VERY_WEAK'		=> '很弱',
+	'PS_WEAK'			=> '弱',
+	'PS_GOOD'			=> '中',
+	'PS_STRONG'			=> '强',
+	'PS_VERY_STRONG'	=> '很强',
 ));

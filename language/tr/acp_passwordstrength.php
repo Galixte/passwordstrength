@@ -1,12 +1,11 @@
 <?php
 /**
 *
-* Password Strength [Arabic]
+* Password Strength [Turkish]
 *
-* @copyright (c) 2013 Matt Friedman
+* @copyright (c) 2016 Matt Friedman, translated by ESQARE (http://www.phpbbturkey.com)
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
-* Translated By : Bassel Taha Alhitary - www.alhitary.net
 */
 
 /**
@@ -35,9 +34,8 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'PS_VERY_WEAK'		=> 'ضعيفة جداً',
-	'PS_WEAK'			=> 'ضعيفة',
-	'PS_GOOD'			=> 'جيدة',
-	'PS_STRONG'			=> 'قوية',
-	'PS_VERY_STRONG'	=> 'قوية جداً',
+	'PASSWORD_STRENGTH_TYPE'			=> 'Şifre zorluğu algoritması',
+	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Bir şifrenin zorluğunun belirlenmesi için bir algoritma seçin.<br/><strong>Karmaşık</strong> şifre içerisindeki karakterlerin, sayıların, sembollerin ve uzunluğun karışımına bakarak şifrenin karmaşık olmasını teşvik eder.<br/><strong>zxcvbn</strong> (DropBox aracılığıyla) bir şifrenin ne kadar kolay tahmin edilebileceğini hesaplar, güçlü kullanıcı dostu şifreler için olanak sağlar.',
+	'PASSWORD_STRENGTH_TYPE_COMPLEX'	=> 'Karmaşık',
+	'PASSWORD_STRENGTH_TYPE_ZXCVBN'		=> 'zxcvbn algoritması',
 ));

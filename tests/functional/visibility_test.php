@@ -15,15 +15,17 @@ namespace vse\passwordstrength\tests\functional;
 */
 class visibility_test extends \phpbb_functional_test_case
 {
-	static protected function setup_extensions()
+	protected static function setup_extensions()
 	{
 		return array('vse/passwordstrength');
 	}
 
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
-		$this->add_lang_ext('vse/passwordstrength', 'passwordstrength');
+		$this->add_lang_ext('vse/passwordstrength', array('passwordstrength', 'acp_passwordstrength'));
+
+		$this->purge_cache();
 	}
 
 	public function test_acp_pages()
@@ -31,14 +33,20 @@ class visibility_test extends \phpbb_functional_test_case
 		$this->login();
 		$this->admin_login();
 
+		// Test ACP settings page
+		$crawler = self::request('GET', "adm/index.php?i=acp_board&mode=registration&sid={$this->sid}");
+		$this->assertContainsLang('PASSWORD_STRENGTH_TYPE', $crawler->filter('html')->text());
+		$this->assertContainsLang('PASSWORD_STRENGTH_TYPE_COMPLEX', $crawler->filter('html')->text());
+		$this->assertContainsLang('PASSWORD_STRENGTH_TYPE_ZXCVBN', $crawler->filter('html')->text());
+
 		// Test password strength on ACP Account settings page
 		$crawler = self::request('GET', "adm/index.php?i=acp_users&mode=overview&sid={$this->sid}");
-		$this->assertNotContainsLang('PS_VERY_WEAK', $crawler->filter('html')->text());
+		$this->assertNotContainsLang('PS_WEAK', $crawler->filter('html')->text());
 		$form = $crawler->selectButton($this->lang('SUBMIT'))->form();
 		$data = array('username' => 'admin');
 		$form->setValues($data);
 		$crawler = self::submit($form);
-		$this->assertContainsLang('PS_VERY_WEAK', $crawler->filter('html')->text());
+		$this->assertContainsLang('PS_WEAK', $crawler->filter('html')->text());
 	}
 
 	public function test_ucp_pages()
@@ -47,20 +55,20 @@ class visibility_test extends \phpbb_functional_test_case
 
 		// Test password strength on UCP Account settings page
 		$crawler = self::request('GET', 'ucp.php?i=ucp_profile&mode=reg_details');
-		$this->assertContainsLang('PS_VERY_WEAK', $crawler->filter('html')->text());
+		$this->assertContainsLang('PS_WEAK', $crawler->filter('html')->text());
 
 		// Test password strength on UCP registration page
 		$this->logout();
 		$crawler = self::request('GET', 'ucp.php?mode=register');
 		$form = $crawler->selectButton($this->lang('AGREE'))->form();
 		$crawler = self::submit($form);
-		$this->assertContainsLang('PS_VERY_WEAK', $crawler->filter('html')->text());
+		$this->assertContainsLang('PS_WEAK', $crawler->filter('html')->text());
 	}
 
 	public function test_other_pages()
 	{
 		// Test password strength NOT on index page
 		$crawler = self::request('GET', 'index.php');
-		$this->assertNotContainsLang('PS_VERY_WEAK', $crawler->filter('html')->text());
+		$this->assertNotContainsLang('PS_WEAK', $crawler->filter('html')->text());
 	}
 }

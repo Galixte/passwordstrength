@@ -1,12 +1,11 @@
 <?php
 /**
 *
-* Password Strength [Arabic]
+* Password Strength [English]
 *
-* @copyright (c) 2013 Matt Friedman
+* @copyright (c) 2016 Matt Friedman
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
-* Translated By : Bassel Taha Alhitary - www.alhitary.net
 */
 
 /**
@@ -35,9 +34,8 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'PS_VERY_WEAK'		=> 'ضعيفة جداً',
-	'PS_WEAK'			=> 'ضعيفة',
-	'PS_GOOD'			=> 'جيدة',
-	'PS_STRONG'			=> 'قوية',
-	'PS_VERY_STRONG'	=> 'قوية جداً',
+	'PASSWORD_STRENGTH_TYPE'			=> 'Password strength algorithm',
+	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Choose an algorithm for determining the strength of a password.<br/><strong>Complexity</strong> looks for mixed characters, numbers, symbols and length in a password, encouraging complex passwords.<br/><strong>zxcvbn</strong> (by DropBox) calculates how easily a password can be guessed, allowing for strong user-friendly passwords.',
+	'PASSWORD_STRENGTH_TYPE_COMPLEX'	=> 'Complexity',
+	'PASSWORD_STRENGTH_TYPE_ZXCVBN'		=> 'zxcvbn algorithm',
 ));

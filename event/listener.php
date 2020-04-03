@@ -1,44 +1,64 @@
 <?php
 /**
-*
-* Password Strength
-*
-* @copyright (c) 2013 Matt Friedman
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * Password Strength
+ *
+ * @copyright (c) 2013 Matt Friedman
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace vse\passwordstrength\event;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
-* Event listener
-*/
+ * Event listener
+ */
 class listener implements EventSubscriberInterface
 {
+	/** @var \phpbb\config\config */
+	protected $config;
+
+	/** @var \phpbb\template\template */
+	protected $template;
+
+	/** @var \phpbb\user */
+	protected $user;
+
 	/**
-	* Assign functions defined in this class to event listeners in the core
-	*
-	* @return array
-	* @static
-	* @access public
-	*/
-	static public function getSubscribedEvents()
+	 * Constructor
+	 *
+	 * @param \phpbb\config\config     $config   Config object
+	 * @param \phpbb\template\template $template Template object
+	 * @param \phpbb\user              $user     User object
+	 */
+	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user)
+	{
+		$this->config = $config;
+		$this->template = $template;
+		$this->user = $user;
+	}
+
+	/**
+	 * Assign functions defined in this class to event listeners in the core
+	 *
+	 * @return array
+	 */
+	public static function getSubscribedEvents()
 	{
 		return array(
-			'core.user_setup' => 'load_language_on_setup',
+			'core.user_setup' 					=> 'password_strength_setup',
+			'core.acp_board_config_edit_add'	=> 'password_strength_acp_options',
 		);
 	}
 
 	/**
-	* Load language file during user setup
-	*
-	* @param object $event The event object
-	* @return null
-	* @access public
-	*/
-	public function load_language_on_setup($event)
+	 * Load language file during user setup
+	 *
+	 * @param \phpbb\event\data $event The event object
+	 */
+	public function password_strength_setup($event)
 	{
 		$lang_set_ext = $event['lang_set_ext'];
 		$lang_set_ext[] = array(
@@ -46,5 +66,37 @@ class listener implements EventSubscriberInterface
 			'lang_set' => 'passwordstrength',
 		);
 		$event['lang_set_ext'] = $lang_set_ext;
+
+		$this->template->assign_var('S_USE_ZXCVBN', (bool) $this->config->offsetGet('password_strength_type'));
+	}
+
+	/**
+	 * Add Password Strength settings to the ACP
+	 *
+	 * @param \phpbb\event\data $event The event object
+	 */
+	public function password_strength_acp_options($event)
+	{
+		if ($event['mode'] === 'registration' && array_key_exists('pass_complex', $event['display_vars']['vars']))
+		{
+			$this->user->add_lang_ext('vse/passwordstrength', 'acp_passwordstrength');
+
+			$display_vars = $event['display_vars'];
+
+			$pws_config_vars = array(
+				'password_strength_type' => array(
+					'lang'		=> 'PASSWORD_STRENGTH_TYPE',
+					'validate'	=> 'int',
+					'type'		=> 'select',
+					'function'	=> 'build_select',
+					'params'	=> array(array(0 => 'PASSWORD_STRENGTH_TYPE_COMPLEX', 1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN'), '{CONFIG_VALUE}'),
+					'explain'	=> true,
+				),
+			);
+
+			$display_vars['vars'] = phpbb_insert_config_array($display_vars['vars'], $pws_config_vars, array('after' => 'pass_complex'));
+
+			$event['display_vars'] = $display_vars;
+		}
 	}
 }
